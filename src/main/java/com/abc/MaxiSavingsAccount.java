@@ -2,8 +2,8 @@ package com.abc;
 
 public class MaxiSavingsAccount extends Account{
 	
-	public MaxiSavingsAccount(AccountType accountType) {
-		super(accountType);
+	public MaxiSavingsAccount() {
+		super();
 		
 	}
 	

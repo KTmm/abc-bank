@@ -3,6 +3,7 @@ package com.abc;
 import java.util.Date;
 
 public class Transaction {
+	
     public final double amount;
 
     private Date transactionDate;

@@ -6,16 +6,29 @@ import java.util.List;
 public abstract class Account {
 
     public enum AccountType {
-    	CHECKING, SAVINGS, MAXI_SAVINGS
+    	CHECKING("Checking Account"),
+    	SAVINGS("Savings Account"), 
+    	MAXI_SAVINGS("Maxi Savings Account");
+    	
+    	private String accountStatement;
+    	AccountType( String accountStatement ){
+    		this.accountStatement = accountStatement;
+    	}
+    	
+    	public String getAccountStatement(){
+    		return accountStatement;
+    	}
     }
     
     public AccountType accountType;
     public List<Transaction> transactions;
 
-    public Account(AccountType accountType) {
+    public Account() {
         this.transactions = new ArrayList<Transaction>();
     }
-
+    
+   
+    
     public void deposit(double amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
