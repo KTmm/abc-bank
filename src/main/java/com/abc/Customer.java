@@ -3,6 +3,8 @@ package com.abc;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abc.Account.AccountType;
+
 import static java.lang.Math.abs;
 
 public class Customer {
@@ -43,21 +45,23 @@ public class Customer {
             total += a.sumTransactions();
         }
         statement += "\nTotal In All Accounts " + toDollars(total);
+        
+        System.out.println( statement );
         return statement;
     }
 
     private String statementForAccount(Account a) {
         String s = "";
-
-       //Translate to pretty account type
+        //s += a.getAccountTye().toString;
+    //   Translate to pretty account type
         switch(a.getAccountType()){
-            case Account.CHECKING:
+            case CHECKING:
                 s += "Checking Account\n";
                 break;
-            case Account.SAVINGS:
+            case SAVINGS:
                 s += "Savings Account\n";
                 break;
-            case Account.MAXI_SAVINGS:
+            case MAXI_SAVINGS:
                 s += "Maxi Savings Account\n";
                 break;
         }
