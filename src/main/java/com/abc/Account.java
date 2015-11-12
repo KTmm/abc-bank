@@ -22,12 +22,21 @@ public abstract class Account {
     	}
     }
     
-    public AccountType accountType;
-    public List<Transaction> transactions;
+    private int accountId;
+    private AccountType accountType;
+    private List<Transaction> transactions;
     
 
     public Account() {
         this.transactions = new ArrayList<Transaction>();
+    }
+    
+    public void setAccountId( int accountId ) {
+    	this.accountId = accountId;
+    }
+    
+    public int getAccountId() {
+    	return accountId;
     }
     
     public void addNewTransaction( TransactionType transactionType, double amount ) {
@@ -55,6 +64,10 @@ public abstract class Account {
 
 	public AccountType getAccountType() {
 		return null;
+	}
+	
+	public List<Transaction> getTransactions(){
+		return transactions;
 	}
 
 	

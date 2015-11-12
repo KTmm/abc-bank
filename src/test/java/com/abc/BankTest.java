@@ -24,7 +24,8 @@ public class BankTest {
     public void checkingAccount() throws OverDraftException {
         Bank bank = new Bank();
         Account checkingAccount = new CheckingAccount();
-        Customer bill = new Customer("Bill").openAccount(checkingAccount);
+        Customer bill = new Customer("Bill");
+        bill.openAccount(checkingAccount);
         bank.addCustomer(bill);
 
         checkingAccount.addNewTransaction(TransactionType.DEPOSIT, 100.0);
@@ -36,8 +37,9 @@ public class BankTest {
     public void savings_account() throws OverDraftException {
         Bank bank = new Bank();
         Account checkingAccount = new SavingsAccount();
-        bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
-
+        Customer bill = new Customer("Bill");
+        bank.addCustomer( bill );
+        bill.openAccount(checkingAccount);
         checkingAccount.addNewTransaction(TransactionType.DEPOSIT,1500.0);
 
         assertEquals(2.0, bank.totalInterestPaid(), DOUBLE_DELTA);
@@ -47,7 +49,9 @@ public class BankTest {
     public void maxi_savings_account() throws OverDraftException {
         Bank bank = new Bank();
         Account checkingAccount = new MaxiSavingsAccount();
-        bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
+        Customer bill = new Customer("Bill");
+        bank.addCustomer(bill);
+        bill.openAccount(checkingAccount);
 
         checkingAccount.addNewTransaction( TransactionType.DEPOSIT, 3000.0);
 

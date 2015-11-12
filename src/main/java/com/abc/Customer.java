@@ -20,13 +20,18 @@ public class Customer {
         return name;
     }
 
-    public Customer openAccount(Account account) {
-        accounts.add(account);
-        return this;
+    public int openAccount(Account account) {
+    	accounts.add(account);
+        int accountId = accounts.size();
+        return accountId;
     }
 
     public int getNumberOfAccounts() {
         return accounts.size();
+    }
+    
+    public Account getAccount(int accountId){
+    	return accounts.get( accountId );
     }
 
     public double totalInterestEarned() throws OverDraftException {
@@ -57,7 +62,7 @@ public class Customer {
 
         //Now total up all the transactions
         double total = 0.0;
-        for (Transaction t : a.transactions) {
+        for (Transaction t : a.getTransactions()) {
             s += "  " + (t.getAmount() < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.getAmount()) + "\n";
             total += t.getAmount();
         }
