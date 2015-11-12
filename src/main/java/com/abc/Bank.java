@@ -1,23 +1,32 @@
 package com.abc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Bank {
-    private List<Customer> customers;
+    private HashMap<Long, Customer> customers;
 
     public Bank() {
-        customers = new ArrayList<Customer>();
+        customers = new HashMap<Long, Customer>();
     }
 
-    public void addCustomer(Customer customer) {
-        customers.add(customer);
+    public void addCustomer(Customer customer) throws CustomerExistsException {
+        if( customers.containsKey(customer.getCustomerId())){
+        	throw new CustomerExistsException("Customer already exists!");
+        } else {
+        	customers.put(customer.getCustomerId(), customer);
+        }
     }
 
     public String customerSummary() {
         String summary = "Customer Summary";
-        for (Customer c : customers)
-            summary += "\n - " + c.getName() + " (" + format(c.getNumberOfAccounts(), "account") + ")";
+        if (customers.isEmpty()) {
+        	summary += "\n " + "There are no customers yet.";
+        } else {
+        	for (Customer c : customers.values()) {
+        		summary += "\n - " + c.getName() + " (" + format(c.getNumberOfAccounts(), "account") + ")";
+        	}
+        }
         return summary;
     }
 
@@ -27,10 +36,10 @@ public class Bank {
         return number + " " + (number == 1 ? word : word + "s");
     }
 
-    public double totalInterestPaid() throws OverDraftException {
+    public double totalInterestPaid(Date date) throws OverDraftException {
         double total = 0;
-        for(Customer c: customers)
-            total += c.totalInterestEarned();
+        for(Customer c: customers.values())
+            total += c.totalInterestEarned(date);
         return total;
     }
 
@@ -42,5 +51,9 @@ public class Bank {
             e.printStackTrace();
             return "Error";
         }
+    }
+    
+    public Customer getCustomerById(long customerId){
+    	return customers.get(customerId);
     }
 }

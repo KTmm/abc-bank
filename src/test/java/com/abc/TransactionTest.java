@@ -10,8 +10,8 @@ import static org.junit.Assert.assertTrue;
 public class TransactionTest {
     @Test
     public void transaction() {
-        Transaction deposit = new Transaction(TransactionType.DEPOSIT, 5);
-        Transaction withdraw = new Transaction(TransactionType.WITHDRAW, 5);
+        Transaction deposit = new Transaction(TransactionType.DEPOSIT, 5, DateProvider.getInstance().now());
+        Transaction withdraw = new Transaction(TransactionType.WITHDRAW, 5, DateProvider.getInstance().now());
         assertTrue( deposit instanceof Transaction);
         assertTrue( withdraw instanceof Transaction);
         assertEquals(TransactionType.DEPOSIT, deposit.getTransactionType());
