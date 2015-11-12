@@ -4,22 +4,23 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abc.Account.AccountType;
+import com.abc.Transaction.TransactionType;
 
 import static org.junit.Assert.assertEquals;
 
 public class CustomerTest {
 
     @Test //Test customer statement generation
-    public void testApp(){
+    public void testApp() throws OverDraftException{
 
         Account checkingAccount = new CheckingAccount();
         Account savingsAccount = new SavingsAccount();
 
         Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
 
-        checkingAccount.deposit(100.0);
-        savingsAccount.deposit(4000.0);
-        savingsAccount.withdraw(200.0);
+        checkingAccount.addNewTransaction(TransactionType.DEPOSIT, 100.0);
+        savingsAccount.addNewTransaction( TransactionType.DEPOSIT, 4000.0);
+        savingsAccount.addNewTransaction(TransactionType.WITHDRAW, 200.0);
 
         assertEquals("Statement for Henry\n" +
                 "\n" +
@@ -56,4 +57,6 @@ public class CustomerTest {
         oscar.openAccount(new CheckingAccount());
         assertEquals(3, oscar.getNumberOfAccounts());
     }
+    
+  
 }

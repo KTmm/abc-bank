@@ -27,7 +27,7 @@ public class Bank {
         return number + " " + (number == 1 ? word : word + "s");
     }
 
-    public double totalInterestPaid() {
+    public double totalInterestPaid() throws OverDraftException {
         double total = 0;
         for(Customer c: customers)
             total += c.totalInterestEarned();

@@ -29,14 +29,14 @@ public class Customer {
         return accounts.size();
     }
 
-    public double totalInterestEarned() {
+    public double totalInterestEarned() throws OverDraftException {
         double total = 0;
         for (Account a : accounts)
             total += a.interestEarned();
         return total;
     }
 
-    public String getStatement() {
+    public String getStatement() throws OverDraftException {
         String statement = null;
         statement = "Statement for " + name + "\n";
         double total = 0.0;
@@ -58,8 +58,8 @@ public class Customer {
         //Now total up all the transactions
         double total = 0.0;
         for (Transaction t : a.transactions) {
-            s += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.amount) + "\n";
-            total += t.amount;
+            s += "  " + (t.getAmount() < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.getAmount()) + "\n";
+            total += t.getAmount();
         }
         s += "Total " + toDollars(total);
         return s;

@@ -13,7 +13,7 @@ public class CheckingAccount extends Account{
 	}
 	
 	@Override
-	public double interestEarned(){
+	public double interestEarned() throws OverDraftException{
 		double amount = sumTransactions();
 		return amount * 0.001;
 	}
