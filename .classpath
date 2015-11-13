@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/JAVA/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse-java-juno-SR1-win32-x86_64/eclipse/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

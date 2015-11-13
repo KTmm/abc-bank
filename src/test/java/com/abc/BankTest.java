@@ -1,16 +1,14 @@
 package com.abc;
 
+import static org.junit.Assert.assertEquals;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
 
-import com.abc.Account.AccountType;
 import com.abc.Transaction.TransactionType;
-
-import static org.junit.Assert.assertEquals;
 
 public class BankTest {
     private static final double DOUBLE_DELTA = 1e-15;
@@ -33,7 +31,7 @@ public class BankTest {
     }
 
     @Test
-    public void customerSummaryMultipleCustomer() throws AccountExistsException, CustomerExistsException {
+    public void customerSummaryMultipleCustomers() throws AccountExistsException, CustomerExistsException {
         Bank bank = new Bank();
         Customer john = new Customer("John", 1);
         john.openAccount(new CheckingAccount(1));
@@ -63,6 +61,7 @@ public class BankTest {
         bill.openAccount(checkingAccount);
         bank.addCustomer(bill);
         checkingAccount.addNewTransaction(TransactionType.DEPOSIT, 100000.0, today);
+        System.out.println("checking interest = " + bank.totalInterestPaid(today));
         assertEquals(100000*0.001/365, bank.totalInterestPaid(today), DOUBLE_DELTA);
     }
 
@@ -77,6 +76,7 @@ public class BankTest {
         assertEquals(800*0.001/365, bank.totalInterestPaid(today), DOUBLE_DELTA);
         savings.addNewTransaction(TransactionType.DEPOSIT,5000.0, tomorrow);
         double expectedInterst = 800*0.001/365 + (800*(1+ 0.001/365)+5000 -1000) * 0.002/365 + 1;
+        System.out.println("saving interest = " + bank.totalInterestPaid(tomorrow));
         assertEquals(expectedInterst, bank.totalInterestPaid(tomorrow), DOUBLE_DELTA);
         
     }
@@ -89,8 +89,29 @@ public class BankTest {
         bank.addCustomer(bill);
         bill.openAccount(maxiSaving);
         maxiSaving.addNewTransaction( TransactionType.DEPOSIT, 3000.0, today);
-
+        System.out.println("maxi interest = " + bank.totalInterestPaid(today));
         assertEquals(3000*0.05/365, bank.totalInterestPaid(today), DOUBLE_DELTA);
     }
 
+    @Test
+    public void MultipleAccountWithInterest() throws OverDraftException, ParseException, CustomerExistsException, AccountExistsException {
+        Bank bank = new Bank();
+        Account maxiSaving = new MaxiSavingsAccount(1);
+        Customer bill = new Customer("Bill",1);
+        bank.addCustomer(bill);
+        bill.openAccount(maxiSaving);
+        maxiSaving.addNewTransaction( TransactionType.DEPOSIT, 3000.0, today);
+        Account savings = new SavingsAccount(2);
+        bill.openAccount(savings);
+        savings.addNewTransaction(TransactionType.DEPOSIT,800.0, today);
+        Customer joe = new Customer("Joe",2);
+        bank.addCustomer(joe);
+        Account checkingAccount = new CheckingAccount(3);
+        joe.openAccount(checkingAccount);
+        checkingAccount.addNewTransaction(TransactionType.DEPOSIT, 100000.0, today);
+        double expectedTotalInterest = 3000*0.05/365 + 800*0.001/365 + 100000*0.001/365;
+        System.out.println("total interest = " + bank.totalInterestPaid(today));
+        assertEquals(expectedTotalInterest, bank.totalInterestPaid(today), DOUBLE_DELTA);
+    }
+    
 }

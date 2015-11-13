@@ -12,7 +12,6 @@ public class MaxiSavingsAccount extends Account{
 		
 	public MaxiSavingsAccount(long accountNumber) {
 		super(accountNumber);
-		
 	}
 	
 	@Override
@@ -35,7 +34,7 @@ public class MaxiSavingsAccount extends Account{
 	    		if(balanceToDate < 0){
 	    			throw new OverDraftException("Balance is small than zero! Overdraft!");
 	    		}
-	    		double interestForTheDay = interestEarnedForTheDay(beginDate, balanceToDate);
+	    		double interestForTheDay = calculateInterestEarnedForTheDay(beginDate, balanceToDate);
 	    		totalInterestToDate += interestForTheDay;
 	    		balanceToDate += interestForTheDay;
 	    		priorDayBalance = balanceToDate;
@@ -43,7 +42,7 @@ public class MaxiSavingsAccount extends Account{
 	    	}
 	}
 	
-	private double interestEarnedForTheDay(Date date, double balance) throws OverDraftException{
+	private double calculateInterestEarnedForTheDay(Date date, double balance) throws OverDraftException{
 		if ( accountHasWithdrawInAPeriod(date, daysToReachHighRate)){
 			return balance * defaultRate / 365;
 		} else {

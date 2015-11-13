@@ -9,14 +9,12 @@ public class SavingsAccount extends Account{
 	
 	public SavingsAccount(long accountNumber) {
 		super(accountNumber);
-		
 	}
 	
 	@Override
 	public AccountType getAccountType() {
 		return AccountType.SAVINGS;
 	}
-	
 	
 	@Override
 	public void calculateBalanceAndInterestToDate(Date date) throws OverDraftException{
@@ -33,7 +31,7 @@ public class SavingsAccount extends Account{
 	    		if(balanceToDate < 0){
 	    			throw new OverDraftException("Balance is small than zero! Overdraft!");
 	    		}
-	    		double interestForTheDay = interestEarnedForTheDay(balanceToDate);
+	    		double interestForTheDay = calculateInterestEarnedForTheDay(balanceToDate);
 	    		totalInterestToDate += interestForTheDay;
 	    		balanceToDate += interestForTheDay;
 	    		priorDayBalance = balanceToDate;
@@ -41,7 +39,7 @@ public class SavingsAccount extends Account{
 	    	}
 	}
 	
-	private double interestEarnedForTheDay(double balance) throws OverDraftException{
+	private double calculateInterestEarnedForTheDay(double balance) throws OverDraftException{
 		if (balance <= amountToReachSecondTireRate){
 			return balance * defaultRate / 365;
 		}

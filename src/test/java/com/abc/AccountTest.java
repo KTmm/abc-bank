@@ -3,7 +3,6 @@ package com.abc;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,8 +11,8 @@ import org.junit.Test;
 import com.abc.Transaction.TransactionType;
 
 public class AccountTest {
-	private Date today = DateProvider.createDate(2015, Calendar.NOVEMBER, 10);
-    private Date twoDaysLater = DateProvider.createDate(2015, Calendar.NOVEMBER, 12);
+	private final Date today = DateProvider.createDate(2015, Calendar.NOVEMBER, 10);
+    private final Date twoDaysLater = DateProvider.createDate(2015, Calendar.NOVEMBER, 12);
 	
 	@Test
     public void testAddTransactions() throws OverDraftException, ParseException {
@@ -89,6 +88,5 @@ public class AccountTest {
         checking.addNewTransaction( TransactionType.DEPOSIT, 100.0, today);
         checking.addNewTransaction( TransactionType.WITHDRAW, 101.0, today);
         checking.calculateBalanceAndInterestToDate(today);
-        //assertEquals( -1.0, checking.getBalanceToDate(), 0.001);
 	}
 }

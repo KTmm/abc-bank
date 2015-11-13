@@ -5,14 +5,14 @@ import java.util.Date;
 public class Transaction {
 	
 	public enum TransactionType {
-		DEPOSIT("deposit", 1D), 
-		WITHDRAW("withdrawal", -1D),
-		TRANSFER_IN("transfer in", 1D),
-		TRANSFER_OUT("transfer out", -1D);
+		DEPOSIT("deposit", 1), 
+		WITHDRAW("withdrawal", -1),
+		TRANSFER_IN("transfer in", 1),
+		TRANSFER_OUT("transfer out", -1);
 		
 		private String label;
-		private double amountMultiplier;
-		TransactionType(String label, Double amountMultiplier){
+		private int amountMultiplier;
+		TransactionType(String label, int amountMultiplier){
 			this.label = label;
 			this.amountMultiplier = amountMultiplier;
 		}
@@ -27,7 +27,6 @@ public class Transaction {
 	}
 	
     private final double amount;
-
     private Date transactionDate;
     private TransactionType transactionType;
 

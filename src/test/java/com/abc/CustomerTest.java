@@ -3,17 +3,14 @@ package com.abc;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import com.abc.Account.AccountType;
 import com.abc.Transaction.TransactionType;
 
 import static org.junit.Assert.assertEquals;
 
 public class CustomerTest {
-	private static final double DOUBLE_DELTA = 1e-15;
-    private Date today = DateProvider.createDate(2015, Calendar.NOVEMBER, 11);
+	private final Date today = DateProvider.createDate(2015, Calendar.NOVEMBER, 11);
     	
     @Test
     public void testZeroAccount(){
